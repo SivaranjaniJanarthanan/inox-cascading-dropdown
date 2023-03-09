@@ -30,9 +30,14 @@
         var mar8 = ["Select The Time","9 am","12 pm","4 pm"];
         var mar9 = ["Select The Time","10 am","12 pm","6 pm"];
         var mar10 = ["Select The Time","9.30 am","2 pm","5.30 pm"];
+        var srivenkateshvaratheatorseats = ["Select The Available Seat","2","5","8","9","10","15"];
+        var inoxtheatorseats = ["Select The Available Seat","1","3","4","9","10","25"];
+        var thulasitheatorseats = ["Select The Available Seat","2","15","18","19","20","23"];
         var cinemas = [];
         var dates = [];
         var times = [];
+        var seats = [];
+
 
         function LoadMovie(){
             for(var movie of movies){
@@ -115,6 +120,8 @@
                      times = mar10;
                      LoadTime();
                      break;
+                     default:
+                     times = ["Select The Time"];
               }
         }
         function LoadTime(){
@@ -126,17 +133,47 @@
                 document.getElementById("time").appendChild(option);
             }
         }
+        function ChangeTime(){
+            var timeName= document.getElementById("time").value;
+              switch(timeName){
+                    case "Sri Venkateshvara Theator Seats":
+                     seats = srivenkateshvaratheatorseats;
+                     LoadSeat();
+                     break;
+                    case "Thulasi Theator Seats":
+                     seats = thulasitheatorseats;
+                     LoadSeat();
+                     break;
+                    case "Inox Theator Seats":
+                     seats = inoxtheatorseats;
+                     LoadSeat();
+                     break;
+                     default:
+                     seats = ["Select The Seats"];
+              }
+        }
+        function LoadSeat(){
+            document.getElementById("seat").innerHTML="";
+            for(var seat of seats){
+                var option = document.createElement("option");
+                option.text = seat;
+                option.value = seat;
+                document.getElementById("seat").appendChild(option);
+            }
+        }
     function bodyload(){
         LoadMovie();
         LoadCinema();
         LoadDate();
         LoadTime();
+        LoadSeat();
     }
     function printClick(){
     document.getElementById("lblmovie").innerHTML=document.getElementById("movie").value;
     document.getElementById("lblcinema").innerHTML=document.getElementById("cinema").value;
     document.getElementById("lbldate").innerHTML=document.getElementById("date").value;
     document.getElementById("lbltime").innerHTML=document.getElementById("time").value;
+    document.getElementById("lblseat").innerHTML=document.getElementById("seat").value;
    
 
     movieName = document.getElementById("movie").value;
@@ -215,7 +252,10 @@
             <select id="date" onchange="ChangeDate()"> </select>
         </div>
         <div>
-            <select id="time"> </select>
+            <select id="time" onchange="ChangeTime()"> </select>
+        </div>
+        <div>
+            <select id="seat"> </select>
         </div>
         <div>
             <button data-bs-target="#book" data-bs-toggle="modal" class="btn btn-success" onclick="printClick()">Book</button>
@@ -240,6 +280,8 @@
                             <dd class="col-7 mt-4" id="lbldate"></dd>
                             <dt class="col-5 mt-4">On Time:</dt>
                             <dd class="col-7 mt-4" id="lbltime"></dd>
+                            <dt class="col-5 mt-4">On Seat:</dt>
+                            <dd class="col-7 mt-4" id="lblseat"></dd>
                         </dl>
                         <div class="row mt-3">
                             <div class="col text-center">
